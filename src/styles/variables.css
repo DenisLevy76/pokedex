@@ -1,0 +1,6 @@
+:root {
+  --primary-color: #ff2e01;
+  --secondary-color: #ffe36d;
+  --main-gradient: linear-gradient(var(--primary-color), #fd6645);
+  --text-color: #fefefe;
+}

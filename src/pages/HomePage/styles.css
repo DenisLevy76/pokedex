@@ -1,0 +1,5 @@
+.home-page__main {
+  background: var(--main-gradient);
+  height: 100vh;
+  text-align: center;
+}

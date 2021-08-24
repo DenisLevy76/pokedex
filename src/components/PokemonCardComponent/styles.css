@@ -1,0 +1,10 @@
+.pokemon-card__pokemon-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pokemon-card__pokemon-icon img {
+  width: 100%;
+  height: 100%;
+}
