@@ -4,7 +4,6 @@ export const api = axios.create({
   baseURL: 'https://pokeapi.co/api/v2/',
 });
 
-export const getData = async (url, options = {}) => {
-  const response = await api.get(url, options);
-  return response;
+export const getData = (url, options = {}) => {
+  return api.get(url, options);
 };

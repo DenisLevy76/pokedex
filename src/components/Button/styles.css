@@ -1,0 +1,24 @@
+.btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+
+  font-weight: bold;
+}
+
+.btn:hover:not(:disabled) {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.btn:disabled {
+  transform: brightness(0.8);
+  opacity: 0.8;
+}
