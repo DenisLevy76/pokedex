@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-export const PokemonCardComponent = ({ pokemon }) => {
+export const PokeInfosComponents = ({ pokemon }) => {
   return (
     <article className="pokemon-card__article-container">
       <header className="pokemon-card__title-container">
@@ -17,7 +17,7 @@ export const PokemonCardComponent = ({ pokemon }) => {
       <div className="pokemon-card__description">
         <h2 className="pokemon-card__description-title title">Description</h2>
         <p className="pokemon-card__pokemon-description">
-          {`${pokemon?.description}`}
+          {pokemon?.description}
         </p>
       </div>
 
@@ -27,7 +27,7 @@ export const PokemonCardComponent = ({ pokemon }) => {
         <h3 className="pokemon-card__moves-title title">Moves</h3>
         <span className="pokemon-card__moves">
           {pokemon?.moves.map((move) => (
-            <p key={move.ability.name}>{move.ability.name}</p>
+            <p key={move.move.name}>{move.move.name}</p>
           ))}
         </span>
       </div>

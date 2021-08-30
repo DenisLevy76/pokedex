@@ -13,6 +13,7 @@
 .home-page__content {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 2rem;
 }
 
@@ -38,7 +39,7 @@
 
 @media (min-width: 768px) {
   .home-page__main {
-    background: rgb(206, 142, 142);
+    background: rgb(184, 110, 110);
     height: 100vh;
     text-align: center;
     padding: 1rem;
@@ -51,6 +52,9 @@
 
   .home-page__content {
     background: var(--main-gradient);
+
+    min-width: 360px;
+    min-height: 610px;
 
     padding: 1rem;
 

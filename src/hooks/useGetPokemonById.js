@@ -11,9 +11,9 @@ export const useGetPokemonById = (id) => {
   const history = useHistory();
 
   useEffect(() => {
-    setResponse(null);
     setLoading(true);
     setError(null);
+    let cancel = false;
 
     const source = axios.CancelToken.source();
 
@@ -25,9 +25,7 @@ export const useGetPokemonById = (id) => {
 
         const pokemonDescription = await getData(
           responsePokemon.data.species.url,
-          {
-            cancelToken: source.token,
-          }
+          { cancelToken: source.token }
         );
 
         const pokemonData = {
@@ -35,23 +33,28 @@ export const useGetPokemonById = (id) => {
           types: responsePokemon.data.types,
           img: responsePokemon.data.sprites.other['official-artwork']
             .front_default,
-          description:
-            pokemonDescription.data.flavor_text_entries[28].flavor_text,
-          moves: responsePokemon.data.abilities,
-          index: responsePokemon.data.game_indices[3].game_index,
+          description: pokemonDescription.data.flavor_text_entries.filter(
+            (description) => description.language.name === 'en'
+          )[0].flavor_text,
+          moves: responsePokemon.data.moves.filter((move, index) => index < 4),
+          index: responsePokemon.data.id,
         };
+
+        if (cancel) return;
 
         setLoading(false);
         setResponse(responsePokemon);
         setPokemon(pokemonData);
       } catch (error) {
         setLoading(false);
-        setTimeout(() => history.push('/404'), 300);
+        console.log(error);
+        history.replace('/404');
       }
     })();
 
     return () => {
-      source.cancel();
+      cancel = true;
+      // source.cancel();
     };
   }, [id, history]);
 

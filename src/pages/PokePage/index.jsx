@@ -1,37 +1,50 @@
 import { useHistory, useParams } from 'react-router-dom';
 import { Button } from '../../components/Button';
-import { PokemonCardComponent } from '../../components/PokemonCardComponent';
+import { Loader } from '../../components/Loader';
+import { PokeInfosComponents } from '../../components/PokeInfosComponents';
+import { PokemonCardLoading } from '../../components/PokemonCardLoading';
 import { useGetPokemonById } from '../../hooks/useGetPokemonById';
 import './styles.css';
 
 export const PokePage = () => {
   const { id } = useParams();
-  const { pokemon } = useGetPokemonById(id);
+  const { pokemon, loading } = useGetPokemonById(id);
 
   const history = useHistory();
 
   const handleNextPokemon = () => {
-    history.push(`/pokemon/${pokemon.index + 1}`);
+    if (Number(id) + 1 > 898) {
+      history.push(`/pokemon/${1}`);
+    } else {
+      pokemon && history.push(`/pokemon/${Number(id) + 1}`);
+    }
   };
 
   const handlePreviousPokemon = () => {
-    history.push(`/pokemon/${pokemon.index - 1}`);
+    if (Number(id) - 1 <= 0) {
+      history.push(`/pokemon/898`);
+    } else {
+      pokemon && history.push(`/pokemon/${Number(id) - 1}`);
+    }
   };
 
   return (
     <>
       <main className="home-page__main">
         <section className="home-page__content">
-          <PokemonCardComponent pokemon={pokemon ?? pokemon} />
+          {loading ? (
+            <PokemonCardLoading />
+          ) : (
+            <PokeInfosComponents pokemon={pokemon ?? pokemon} />
+          )}
           <div className="handle-pokemon__container">
-            <Button
-              onClick={handlePreviousPokemon}
-              disabled={Number(id) - 1 <= 0}
-            >
-              Back
-            </Button>
+            <Button onClick={handlePreviousPokemon}>Back</Button>
             <span className="handle-pokemon__active-pokemon-index">
-              {`${pokemon?.index}`.padStart(3, '0')}
+              {loading ? (
+                <Loader extraStyles={{ height: '1rem', width: '27px' }} />
+              ) : (
+                `${pokemon?.index}`.padStart(3, '0')
+              )}
             </span>
             <Button onClick={handleNextPokemon}>Next</Button>
           </div>
