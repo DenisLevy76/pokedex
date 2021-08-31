@@ -1,10 +1,10 @@
 import { useHistory, useParams } from 'react-router-dom';
-import { Button } from '../../components/Button';
-import { Loader } from '../../components/Loader';
 import { PokeInfosComponents } from '../../components/PokeInfosComponents';
 import { PokemonCardLoading } from '../../components/PokemonCardLoading';
 import { useGetPokemonById } from '../../hooks/useGetPokemonById';
 import { pokemonTypes } from '../../styles/pokemonTypes';
+import { Button } from '../../components/Button';
+import { Loader } from '../../components/Loader';
 
 import './styles.css';
 
@@ -34,17 +34,26 @@ export const PokePage = () => {
     <>
       <main
         className={`home-page__main`}
-        style={{
-          backgroundColor: pokemonTypes[pokemon?.types[0].type.name].primary,
-        }}
+        style={
+          pokemon
+            ? {
+                backgroundColor:
+                  pokemonTypes[pokemon?.types[0].type.name].primary,
+              }
+            : null
+        }
       >
         <section
           className="home-page__content"
-          style={{
-            background: `linear-gradient(${
-              pokemonTypes[pokemon?.types[0].type.name].primary
-            }, ${pokemonTypes[pokemon?.types[0].type.name].secondary})`,
-          }}
+          style={
+            pokemon
+              ? {
+                  background: `linear-gradient(${
+                    pokemonTypes[pokemon?.types[0].type.name].primary
+                  }, ${pokemonTypes[pokemon?.types[0].type.name].secondary})`,
+                }
+              : null
+          }
         >
           {loading ? (
             <PokemonCardLoading />
