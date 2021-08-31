@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getData } from '../services/api';
@@ -15,17 +14,12 @@ export const useGetPokemonById = (id) => {
     setError(null);
     let cancel = false;
 
-    const source = axios.CancelToken.source();
-
     (async () => {
       try {
-        const responsePokemon = await getData(`pokemon/${id}`, {
-          cancelToken: source.token,
-        });
+        const responsePokemon = await getData(`pokemon/${id}`);
 
         const pokemonDescription = await getData(
-          responsePokemon.data.species.url,
-          { cancelToken: source.token }
+          responsePokemon.data.species.url
         );
 
         const pokemonData = {
@@ -54,7 +48,6 @@ export const useGetPokemonById = (id) => {
 
     return () => {
       cancel = true;
-      // source.cancel();
     };
   }, [id, history]);
 

@@ -4,6 +4,8 @@ import { Loader } from '../../components/Loader';
 import { PokeInfosComponents } from '../../components/PokeInfosComponents';
 import { PokemonCardLoading } from '../../components/PokemonCardLoading';
 import { useGetPokemonById } from '../../hooks/useGetPokemonById';
+
+import './pokemonTypesColors.css';
 import './styles.css';
 
 export const PokePage = () => {
@@ -13,24 +15,24 @@ export const PokePage = () => {
   const history = useHistory();
 
   const handleNextPokemon = () => {
-    if (Number(id) + 1 > 898) {
+    if (pokemon.index + 1 > 898) {
       history.push(`/pokemon/${1}`);
     } else {
-      pokemon && history.push(`/pokemon/${Number(id) + 1}`);
+      pokemon && history.push(`/pokemon/${pokemon.index + 1}`);
     }
   };
 
   const handlePreviousPokemon = () => {
-    if (Number(id) - 1 <= 0) {
+    if (pokemon.index - 1 <= 0) {
       history.push(`/pokemon/898`);
     } else {
-      pokemon && history.push(`/pokemon/${Number(id) - 1}`);
+      pokemon && history.push(`/pokemon/${pokemon.index - 1}`);
     }
   };
 
   return (
     <>
-      <main className="home-page__main">
+      <main className={`home-page__main ${pokemon?.types[0].type.name}`}>
         <section className="home-page__content">
           {loading ? (
             <PokemonCardLoading />
@@ -38,7 +40,9 @@ export const PokePage = () => {
             <PokeInfosComponents pokemon={pokemon ?? pokemon} />
           )}
           <div className="handle-pokemon__container">
-            <Button onClick={handlePreviousPokemon}>Back</Button>
+            <Button onClick={handlePreviousPokemon} disabled={loading}>
+              Back
+            </Button>
             <span className="handle-pokemon__active-pokemon-index">
               {loading ? (
                 <Loader extraStyles={{ height: '1rem', width: '27px' }} />
@@ -46,7 +50,9 @@ export const PokePage = () => {
                 `${pokemon?.index}`.padStart(3, '0')
               )}
             </span>
-            <Button onClick={handleNextPokemon}>Next</Button>
+            <Button onClick={handleNextPokemon} disabled={loading}>
+              Next
+            </Button>
           </div>
         </section>
       </main>
