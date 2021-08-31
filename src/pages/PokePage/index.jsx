@@ -4,8 +4,8 @@ import { Loader } from '../../components/Loader';
 import { PokeInfosComponents } from '../../components/PokeInfosComponents';
 import { PokemonCardLoading } from '../../components/PokemonCardLoading';
 import { useGetPokemonById } from '../../hooks/useGetPokemonById';
+import { pokemonTypes } from '../../styles/pokemonTypes';
 
-import './pokemonTypesColors.css';
 import './styles.css';
 
 export const PokePage = () => {
@@ -32,8 +32,20 @@ export const PokePage = () => {
 
   return (
     <>
-      <main className={`home-page__main ${pokemon?.types[0].type.name}`}>
-        <section className="home-page__content">
+      <main
+        className={`home-page__main`}
+        style={{
+          backgroundColor: pokemonTypes[pokemon?.types[0].type.name].primary,
+        }}
+      >
+        <section
+          className="home-page__content"
+          style={{
+            background: `linear-gradient(${
+              pokemonTypes[pokemon?.types[0].type.name].primary
+            }, ${pokemonTypes[pokemon?.types[0].type.name].secondary})`,
+          }}
+        >
           {loading ? (
             <PokemonCardLoading />
           ) : (
